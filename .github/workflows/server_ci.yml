@@ -12,12 +12,12 @@ jobs:
       db:
         image: mysql:8.0
         ports:
-          - ${{ secrets.DB_PORT }}
+          - 3306
         env:
-          MYSQL_USER: ${{ secrets.DB_USER }}
-          MYSQL_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.DB_DATABASE }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.ROOT_PASSWORD }}
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MYSQL_DATABASE: attend_log
+          MYSQL_ROOT_PASSWORD: root
           TZ: 'Asia/Tokyo'
 
     steps:
