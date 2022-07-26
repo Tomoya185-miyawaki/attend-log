@@ -29,7 +29,8 @@ jobs:
       run: |
         docker-compose exec -T server bash -c "composer install --prefer-dist --no-progress --no-suggest"
     - name: Run test suite
+      env:
+        DB_CONNECTION: testing_sqlite
       run: |
         docker-compose exec -T server bash -c "cp .env.example .env"
-        docker-compose exec -T server bash -c "php artisan migrate"
         docker-compose exec -T server bash -c "composer run-script test"
