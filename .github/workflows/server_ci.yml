@@ -31,3 +31,11 @@ jobs:
     - name: Run test suite
       run: |
         docker-compose exec -T server bash -c "composer run-script test"
+      env:
+        APP_KEY: ${{ secrets.APP_KEY }}
+        DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+        DB_HOST: ${{ secrets.db }}
+        DB_PORT: ${{ secrets.DB_PORT }}
+        DB_DATABASE: ${{ secrets.DB_DATABASE }}
+        DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
