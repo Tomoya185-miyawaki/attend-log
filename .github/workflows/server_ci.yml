@@ -12,7 +12,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Create dot env file
-    - shell: bash
+      shell: bash
       run: |
         touch .env
         echo "WEB_PORT=${{ secrets.WEB_PORT }}" >> .env
