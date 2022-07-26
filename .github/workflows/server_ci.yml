@@ -11,12 +11,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
+    - name: dokcer-compose up
+      run: |
+        docker-compose up -d
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
-
+      run: |
+        docker-compose exec -T server bash -c "composer install --prefer-dist --no-progress --no-suggest"
     - name: Run test suite
-      run: composer run-script test
+      run: |
+        docker-compose exec -T server bash -c "composer run-script test"
