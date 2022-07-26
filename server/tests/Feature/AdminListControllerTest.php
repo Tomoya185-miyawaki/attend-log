@@ -2,21 +2,37 @@
 
 namespace Tests\Feature;
 
+use App\Models\Admin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class AdminListControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
+    private const CREATE_NUM = 10;
+
     /**
-     * A basic feature test example.
+     * setUp
      *
      * @return void
      */
-    public function test_example(): void
+    public function setUp(): void
+    {
+        parent::setUp();
+        Admin::factory(self::CREATE_NUM)->create();
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function 正常に処理が完了すること(): void
     {
         $response = $this->get('/api/admins');
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK)
+                 ->assertJsonCount(self::CREATE_NUM, 'data');
     }
 }
