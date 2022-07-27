@@ -24,10 +24,10 @@ services:
     environment:
       - DB_CONNECTION=mysql
       - DB_HOST=db
-      - DB_PORT=${DB_PORT}
-      - DB_DATABASE=${DB_NAME}
-      - DB_USERNAME=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=3306
+      - DB_DATABASE=attend_log
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
       - "TZ=Asia/Tokyo"
     tty: true
 
@@ -50,10 +50,10 @@ services:
     ports:
       - ${DB_PORT}:${DB_PORT}
     environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: attend_log
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
       TZ: 'Asia/Tokyo'
     volumes:
       - mysql-volume:/var/lib/mysql
