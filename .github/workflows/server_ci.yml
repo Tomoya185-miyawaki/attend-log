@@ -24,7 +24,7 @@ jobs:
         echo "DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}" >> .env
     - name: docker-compose up
       run: |
-        docker-compose up -d server db
+        docker-compose up -d --build server db
     - name: Install dependencies
       run: |
         docker-compose exec -T server bash -c "composer install --prefer-dist --no-progress --no-suggest"
