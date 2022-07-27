@@ -11,7 +11,7 @@ services:
     volumes:
       - ./front/:/var/www/html
     ports:
-      - ${WEB_PORT}:${WEB_PORT}
+      - 8080:8080
     command: "npm run serve"
     tty: true
 
@@ -26,8 +26,8 @@ services:
       - DB_HOST=db
       - DB_PORT=3306
       - DB_DATABASE=attend_log
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
+      - DB_USERNAME=attend_log
+      - DB_PASSWORD=password
       - "TZ=Asia/Tokyo"
     tty: true
 
@@ -36,7 +36,7 @@ services:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     ports:
-      - ${API_PORT}:${API_PORT}
+      - 3000:3000
     depends_on:
       - server
     volumes:
@@ -48,7 +48,7 @@ services:
       context: .
       dockerfile: ./docker/mysql/Dockerfile
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 3306:3306
     environment:
       MYSQL_DATABASE: attend_log
       MYSQL_USER: root
