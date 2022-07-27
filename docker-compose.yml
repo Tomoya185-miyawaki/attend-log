@@ -51,9 +51,9 @@ services:
       - 3306:3306
     environment:
       MYSQL_DATABASE: attend_log
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: attend_log
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
       TZ: 'Asia/Tokyo'
     volumes:
       - mysql-volume:/var/lib/mysql
