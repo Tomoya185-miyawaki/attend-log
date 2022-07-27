@@ -8,10 +8,11 @@ services:
     build:
       context: .
       dockerfile: ./docker/node/Dockerfile
+    container_name: front
     volumes:
       - ./front/:/var/www/html
     ports:
-      - ${WEB_PORT}:${WEB_PORT}
+      - 8080:8080
     command: "npm run serve"
     tty: true
 
@@ -19,15 +20,16 @@ services:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
+    container_name: server
     volumes:
       - ./server/:/var/www/html
     environment:
       - DB_CONNECTION=mysql
       - DB_HOST=db
-      - DB_PORT=${DB_PORT}
-      - DB_DATABASE=${DB_NAME}
-      - DB_USERNAME=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=3306
+      - DB_DATABASE=attend_log
+      - DB_USERNAME=attend_log
+      - DB_PASSWORD=password
       - "TZ=Asia/Tokyo"
     tty: true
 
@@ -35,8 +37,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
+    container_name: api
     ports:
-      - ${API_PORT}:${API_PORT}
+      - 3000:3000
     depends_on:
       - server
     volumes:
@@ -47,13 +50,14 @@ services:
     build:
       context: .
       dockerfile: ./docker/mysql/Dockerfile
+    container_name: db
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 3306:3306
     environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: attend_log
+      MYSQL_USER: attend_log
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
       TZ: 'Asia/Tokyo'
     volumes:
       - mysql-volume:/var/lib/mysql
