@@ -26,10 +26,6 @@ jobs:
     - name: Install dependencies
       run: |
         docker-compose exec -T server bash -c "composer install --prefer-dist --no-progress --no-suggest"
-    - name: docker-compose ps
-      run: |
-        docker-compose ps
-        docker-compose logs db
     - name: create database file
       run: |
         docker-compose exec -T server bash -c "mkdir -p database"
