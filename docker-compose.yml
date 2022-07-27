@@ -1,8 +1,5 @@
 version: '3'
 
-volumes:
-  mysql-volume:
-
 services:
   front:
     build:
@@ -59,6 +56,4 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       TZ: 'Asia/Tokyo'
-    volumes:
-      - mysql-volume:/var/lib/mysql
     tty: true

@@ -32,7 +32,7 @@ jobs:
         docker-compose exec -T server bash -c "touch testing.sqlite"
     - name: migrate
       run: |
-        docker-compose exec -T server bash -c "php artisan migrate --env=testing"
+        docker-compose exec -T server bash -c "php artisan migrate"
     - name: Run test
       run: |
         docker-compose exec -T server bash -c "composer test"
