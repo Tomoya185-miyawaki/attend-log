@@ -8,18 +8,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    services:
-      db:
-        image: mysql:8.0
-        ports:
-          - 3306
-        env:
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
-          MYSQL_DATABASE: attend_log
-          MYSQL_ROOT_PASSWORD: root
-          TZ: 'Asia/Tokyo'
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -34,13 +22,16 @@ jobs:
         echo "DB_USER=${{ secrets.DB_USER }}" >> .env
         echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
         echo "DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}" >> .env
-    - name: docker-compose up
+    - name: docker-compose up server
       run: |
-        docker-compose up -d
+        docker-compose up -d server
     - name: Install dependencies
       run: |
         docker-compose exec -T server bash -c "composer install --prefer-dist --no-progress --no-suggest"
-    - name: Run test suite
+    - name: Run test
+      env:
+        DB_CONNECTION: testing_sqlite
       run: |
         docker-compose exec -T server bash -c "cp .env.example .env"
-        docker-compose exec -T server bash -c "composer run-script test"
+        docker-compose exec -T server bash -c "php artisan migrate"
+        docker-compose exec -T server bash -c "composer test"
