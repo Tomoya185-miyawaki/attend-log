@@ -26,6 +26,9 @@ jobs:
     - name: Install dependencies
       run: |
         docker-compose exec -T server bash -c "composer install --prefer-dist --no-progress --no-suggest"
+    - name: Sleep
+      run: |
+        docker-compose exec -T server bash -c "sleep 2"
     - name: docker-compose ps
       run: |
         docker-compose ps
