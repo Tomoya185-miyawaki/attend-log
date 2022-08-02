@@ -30,7 +30,7 @@ final class AdminLogoutController extends Controller
             ]);
         }
 
-        $this->auth->guard()->logout();
+        $this->auth->guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

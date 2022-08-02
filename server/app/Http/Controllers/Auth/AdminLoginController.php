@@ -19,22 +19,22 @@ final class AdminLoginController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param LoginRequest $request
+     * @param AdminLoginRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Auth\AuthenticationException
      */
     public function __invoke(AdminLoginRequest $request): JsonResponse
     {
         $credentials = $request->only(['email', 'password']);
-
+        // dd($credentials);
         if ($this->auth->guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
 
             return response()->json([
-                'message' => 'Authenticated.',
+                'message' => '認証に成功しました',
             ]);
         }
 
-        throw new AuthenticationException();
+        throw new AuthenticationException('認証に失敗しました');
     }
 }

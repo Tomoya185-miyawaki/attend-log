@@ -7,7 +7,7 @@ class ApiService {
   }
 
   login(formData: LoginFormData): Promise<any> {
-    return http.post('/login', formData)
+    return http.post('/admin/login', formData)
   }
 }
 
