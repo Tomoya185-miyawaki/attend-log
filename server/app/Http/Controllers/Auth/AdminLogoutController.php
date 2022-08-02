@@ -26,7 +26,7 @@ final class AdminLogoutController extends Controller
     {
         if ($this->auth->guard('admin')->guest()) {
             return response()->json([
-                'message' => 'Already Unauthenticated.',
+                'message' => '既にログアウトしています',
             ]);
         }
 
@@ -35,7 +35,7 @@ final class AdminLogoutController extends Controller
         $request->session()->regenerateToken();
 
         return response()->json([
-            'message' => 'Unauthenticated.',
+            'message' => 'ログアウトに成功しました',
         ]);
     }
 }

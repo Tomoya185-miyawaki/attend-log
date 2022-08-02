@@ -26,7 +26,6 @@ final class AdminLoginController extends Controller
     public function __invoke(AdminLoginRequest $request): JsonResponse
     {
         $credentials = $request->only(['email', 'password']);
-        // dd($credentials);
         if ($this->auth->guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
 
