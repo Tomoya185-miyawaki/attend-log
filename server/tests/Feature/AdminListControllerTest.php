@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use App\Models\Admin;
@@ -7,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
-class AdminListControllerTest extends TestCase
+final class AdminListControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -21,18 +23,30 @@ class AdminListControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        Admin::factory(self::CREATE_NUM)->create();
+        $this->admin = Admin::factory(self::CREATE_NUM)->create();
     }
 
     /**
      * @test
      * @return void
      */
-    public function 正常に処理が完了すること(): void
+    public function 認証済みの場合は正常に処理が完了すること(): void
     {
-        $response = $this->get('/api/admins');
+        $response = $this->actingAs($this->admin[0])
+                         ->get('/api/admins');
 
         $response->assertStatus(Response::HTTP_OK)
                  ->assertJsonCount(self::CREATE_NUM, 'data');
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function 認証していない場合は302リダイレクトすること(): void
+    {
+        $response = $this->get('/api/admins');
+
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 }
