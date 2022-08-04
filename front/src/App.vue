@@ -1,16 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <Login />
+  <v-app id="app">
+    <v-main>
+      <Login/>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import Login from './components/Login.vue';
+import { defineComponent } from 'vue'
+import Login from '@/components/Login.vue'
 
-@Options({
+export default defineComponent({
+  name: 'App',
+
   components: {
     Login,
   },
 })
-export default class App extends Vue {}
 </script>
