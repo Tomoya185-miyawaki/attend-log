@@ -13,15 +13,19 @@ final class AdminLogoutControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->admin = Admin::factory()->create();
+    }
+
     /**
      * @test
      * @return void
      */
     public function ログアウトに成功すること(): void
     {
-        $admin = Admin::factory()->create();
-
-        $response = $this->actingAs($admin, 'admin')
+        $response = $this->actingAs($this->admin, 'admin')
                          ->postJson('/admin/logout');
 
         $response->assertStatus(Response::HTTP_OK)
