@@ -1,10 +1,10 @@
 import { createRouter,createWebHistory } from 'vue-router';
-import Login from '@/pages/admin/Login.vue'
-import NotFound from '@/pages/NotFound.vue'
+import LoginPage from '@/pages/admin/LoginPage.vue'
+import NotFoundPage from '@/pages/NotFoundPage.vue'
 
 const routes = [
-  { path: '/admin/login', name: 'login', component: Login },
-  { path: '/:catchAll(.*)', component: NotFound },
+  { path: '/admin/login', name: 'login', component: LoginPage },
+  { path: '/:catchAll(.*)', component: NotFoundPage },
 ]
 
 const router = createRouter({
