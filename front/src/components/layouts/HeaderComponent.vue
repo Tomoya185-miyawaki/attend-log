@@ -1,13 +1,13 @@
 <template>
-  <v-app>
-    <router-view />
-  </v-app>
+  <v-app-bar app>
+      出退勤管理システム
+  </v-app-bar>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'App',
+  name: 'HeaderComponent',
 })
 </script>
