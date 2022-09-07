@@ -17,23 +17,11 @@ jobs:
     - name: docker-compose up
       run: |
         docker-compose up -d --build server db
-      env:
-        MYSQL_DATABASE: attend_log
-        MYSQL_USER: attend_log
-        MYSQL_PASSWORD: password
-        MYSQL_ROOT_PASSWORD: password
-        TZ: 'Asia/Tokyo'
     - name: Install dependencies
       run: |
         docker-compose exec -T server bash -c "composer install --prefer-dist --no-progress --no-suggest"
         docker-compose exec -T server bash -c "composer dump-autoload"
         docker-compose exec -T server bash -c "php artisan config:clear"
-    - name: Sleep
-      run: |
-        docker-compose exec -T server bash -c "sleep 5"
-    - name: docker-compose ps
-      run: |
-        docker-compose ps
     - name: create database file
       run: |
         docker-compose exec -T server bash -c "mkdir -p database"
