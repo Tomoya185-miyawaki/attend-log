@@ -17,4 +17,24 @@ final class AdminRepository implements AdminRepositoryInterface
     {
         return Admin::all();
     }
+
+    /**
+     * メールアドレスから管理者ユーザを取得する
+     *
+     * @return Admin|null
+     */
+    public function findByEmail(string $email): ?Admin
+    {
+        return Admin::where('email', $email)->first();
+    }
+
+    /**
+     * 管理者ユーザ情報を更新する
+     *
+     * @return bool
+     */
+    public function save(Admin $admin): bool
+    {
+        return $admin->save();
+    }
 }

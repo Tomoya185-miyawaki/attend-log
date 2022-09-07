@@ -20,13 +20,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { boolean } from 'yup';
 
 export default defineComponent({
   name: 'LoadingComponent',
   props: {
     isLoading: {
-      type: boolean,
+      type: Boolean,
       default: false
     }
   }

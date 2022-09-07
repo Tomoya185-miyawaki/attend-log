@@ -2,7 +2,7 @@
   <HeaderComponent />
   <v-main>
     <v-container>
-      <h1 class="text-center mb-2">ログイン</h1>
+      <h1 class="text-center mb-2">パスワードリセット</h1>
       <v-alert
         dense
         outlined
@@ -10,7 +10,7 @@
         class="mb-4"
         v-if="isError"
       >
-        認証に失敗しました
+        パスワードリセットに失敗しました
       </v-alert>
       <form @submit.prevent="handleSubmit">
         <v-text-field
@@ -30,12 +30,12 @@
         ></v-text-field>
         <v-col class="text-right pa-0">
           <v-col class="px-0 pt-0">
-            <router-link to="/admin/password-reset">パスワードを忘れた場合はこちら</router-link>
+            <router-link to="/admin/login">ログイン画面へ</router-link>
           </v-col>
           <v-btn
             type="submit"
           >
-            送信
+            更新
           </v-btn>
         </v-col>
       </form>
@@ -81,13 +81,15 @@ export default defineComponent({
       ) {
         isLoading.value = true
         ApiService.getCsrfToken().then(() => {
-          ApiService.login({
+          ApiService.passwordReset({
             email: email.value,
             password: password.value
-          }).then(() => {
+          }).then((res) => {
+            console.log(res)
             isLoading.value = false
-            router.push('/admin');
-          }).catch(() => {
+            router.push('/admin/login');
+          }).catch((err) => {
+            console.log(err)
             isLoading.value = false
             isError.value = true
           })
