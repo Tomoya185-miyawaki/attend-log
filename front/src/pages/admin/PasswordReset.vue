@@ -84,12 +84,10 @@ export default defineComponent({
           ApiService.passwordReset({
             email: email.value,
             password: password.value
-          }).then((res) => {
-            console.log(res)
+          }).then(() => {
             isLoading.value = false
             router.push('/admin/login');
-          }).catch((err) => {
-            console.log(err)
+          }).catch(() => {
             isLoading.value = false
             isError.value = true
           })
