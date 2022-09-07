@@ -17,29 +17,15 @@ jobs:
     - name: docker-compose up
       run: |
         docker-compose up -d --build server db
-      env:
-        MYSQL_DATABASE: attend_log
-        MYSQL_USER: attend_log
-        MYSQL_PASSWORD: password
-        MYSQL_ROOT_PASSWORD: password
-        TZ: 'Asia/Tokyo'
     - name: Install dependencies
       run: |
         docker-compose exec -T server bash -c "composer install --prefer-dist --no-progress --no-suggest"
-    - name: Sleep
-      run: |
-        docker-compose exec -T server bash -c "sleep 2"
-    - name: docker-compose ps
-      run: |
-        docker-compose ps
-        docker-compose logs db
+        docker-compose exec -T server bash -c "composer dump-autoload"
+        docker-compose exec -T server bash -c "php artisan config:clear"
     - name: create database file
       run: |
         docker-compose exec -T server bash -c "mkdir -p database"
         docker-compose exec -T server bash -c "touch database/testing.sqlite"
-    - name: migrate
-      run: |
-        docker-compose exec -T server bash -c "php artisan migrate --env=testing"
     - name: Run test
       run: |
         docker-compose exec -T server bash -c "composer test"

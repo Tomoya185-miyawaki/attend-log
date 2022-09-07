@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\AdminListController;
+use App\Http\Controllers\Auth\AdminPasswordResetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 /**
+ * 認証が不要なルーティング
+ */
+Route::prefix('admin')->group(function() {
+    Route::post('/password-reset', AdminPasswordResetController::class);
+});
+
+/**
  * 認証が必要なルーティング
  */
 Route::middleware('auth:sanctum')->group(function() {
-    Route::prefix('admins')->group(function() {
+    Route::prefix('admin')->group(function() {
         Route::get('/', AdminListController::class);
     });
 });

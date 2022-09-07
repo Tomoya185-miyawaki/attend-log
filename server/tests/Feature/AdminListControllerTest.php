@@ -33,7 +33,7 @@ final class AdminListControllerTest extends TestCase
     public function 認証済みの場合は正常に処理が完了すること(): void
     {
         $response = $this->actingAs($this->admin[0])
-                         ->get('/api/admins');
+                         ->get('/api/admin');
 
         $response->assertStatus(Response::HTTP_OK)
                  ->assertJsonCount(self::CREATE_NUM, 'data');
@@ -45,7 +45,7 @@ final class AdminListControllerTest extends TestCase
      */
     public function 認証していない場合は302リダイレクトすること(): void
     {
-        $response = $this->get('/api/admins');
+        $response = $this->get('/api/admin');
 
         $response->assertStatus(Response::HTTP_FOUND);
     }
