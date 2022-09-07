@@ -26,20 +26,18 @@ jobs:
     - name: Install dependencies
       run: |
         docker-compose exec -T server bash -c "composer install --prefer-dist --no-progress --no-suggest"
+        docker-compose exec -T server bash -c "composer dump-autoload"
+        docker-compose exec -T server bash -c "php artisan config:clear"
     - name: Sleep
       run: |
-        docker-compose exec -T server bash -c "sleep 2"
+        docker-compose exec -T server bash -c "sleep 5"
     - name: docker-compose ps
       run: |
         docker-compose ps
-        docker-compose logs db
     - name: create database file
       run: |
         docker-compose exec -T server bash -c "mkdir -p database"
         docker-compose exec -T server bash -c "touch database/testing.sqlite"
-    - name: migrate
-      run: |
-        docker-compose exec -T server bash -c "php artisan migrate --env=testing"
     - name: Run test
       run: |
         docker-compose exec -T server bash -c "composer test"
