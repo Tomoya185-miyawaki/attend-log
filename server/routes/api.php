@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\AdminListController;
+use App\Http\Controllers\Auth\AdminAuthStatusController;
 use App\Http\Controllers\Auth\AdminPasswordResetController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::prefix('admin')->group(function() {
     Route::post('/password-reset', AdminPasswordResetController::class);
+    Route::get('/auth/status', AdminAuthStatusController::class);
 });
 
 /**
