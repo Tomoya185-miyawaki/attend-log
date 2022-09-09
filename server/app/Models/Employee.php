@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-final class Admin extends Authenticatable
+final class Employee extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -19,8 +19,7 @@ final class Admin extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
+        'hourly_wage',
     ];
 
     /**
