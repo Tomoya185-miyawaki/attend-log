@@ -13,10 +13,6 @@ class ApiService {
   passwordReset(formData: LoginFormData): Promise<any> {
     return http.post('/api/admin/password-reset', formData)
   }
-
-  authStatus(): Promise<any> {
-    return http.get('/api/admin/auth/status')
-  }
 }
 
 export default new ApiService()
