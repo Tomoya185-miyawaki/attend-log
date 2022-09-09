@@ -86,7 +86,7 @@ export default defineComponent({
             password: password.value
           }).then(() => {
             isLoading.value = false
-            router.push('/admin/login');
+            router.push('/admin/login')
           }).catch(() => {
             isLoading.value = false
             isError.value = true

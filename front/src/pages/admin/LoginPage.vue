@@ -85,8 +85,9 @@ export default defineComponent({
             email: email.value,
             password: password.value
           }).then(() => {
+            localStorage.setItem("adminAuth", "true")
             isLoading.value = false
-            router.push('/admin');
+            router.push('/admin')
           }).catch(() => {
             isLoading.value = false
             isError.value = true
