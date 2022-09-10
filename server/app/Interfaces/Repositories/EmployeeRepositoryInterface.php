@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Interfaces\Repositories;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface EmployeeRepositoryInterface
 {
-    public function getAllEmployees(): Collection;
+    public function getEmployeesByPage(): LengthAwarePaginator;
 }

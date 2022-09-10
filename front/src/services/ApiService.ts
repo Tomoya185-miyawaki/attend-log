@@ -18,8 +18,8 @@ class ApiService {
     return http.post('/api/admin/password-reset', formData)
   }
 
-  getEmployees(): Promise<any> {
-    return http.get('/api/employee')
+  getEmployeesByPaginate(page: number): Promise<any> {
+    return http.get('/api/employee?page=' + page)
   }
 }
 

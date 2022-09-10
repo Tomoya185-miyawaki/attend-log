@@ -23,6 +23,12 @@
           </tr>
         </tbody>
       </v-table>
+      <v-pagination
+        v-model="currentPage"
+        class="my-4"
+        :length="lastPage"
+        @click="getEmployees(currentPage)"
+      ></v-pagination>
     </v-container>
   </v-main>
   <FooterComponent />
@@ -47,25 +53,35 @@ export default defineComponent({
   },
   setup() {
     let isLoading = ref<boolean>(true)
+    let currentPage = ref<number>(1)
+    let lastPage = ref<number>(1)
+    let perPage = ref<number>(10)
     let employees = ref<Employee[]>([])
 
-    const getEmployees = async () => {
+    const getEmployees = async (page: number) => {
+      isLoading.value = true
       await ApiService
-        .getEmployees()
+        .getEmployeesByPaginate(page)
         .then(response => {
           isLoading.value = false
-          employees.value = response.data
+          employees.value = response.data.employees
+          currentPage.value = response.data.currentPage
+          lastPage.value = response.data.lastPage
         })
         .catch(err => {
           isLoading.value = false
           failedApiAfterLogout(err.response.status)
         })
     }
-    getEmployees()
+    getEmployees(currentPage.value)
 
     return {
       isLoading,
-      employees
+      currentPage,
+      lastPage,
+      perPage,
+      employees,
+      getEmployees
     }
   }
 })

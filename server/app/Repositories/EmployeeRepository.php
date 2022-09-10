@@ -6,7 +6,7 @@ namespace App\Repositories;
 
 use App\Models\Employee;
 use App\Interfaces\Repositories\EmployeeRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 final class EmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -15,8 +15,8 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
      *
      * @return Collection
      */
-    public function getAllEmployees(): Collection
+    public function getEmployeesByPage(): LengthAwarePaginator
     {
-        return Employee::all();
+        return Employee::orderBy('updated_at', 'desc')->paginate(10);
     }
 }

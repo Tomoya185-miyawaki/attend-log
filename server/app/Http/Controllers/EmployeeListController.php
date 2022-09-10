@@ -23,8 +23,11 @@ final class EmployeeListController extends Controller
      */
     public function __invoke(): JsonResponse
     {
-        return response()->json(
-            EmployeeResource::collection($this->employeeRepositoryInterface->getAllEmployees())
-        );
+        $employeeByPaginate = $this->employeeRepositoryInterface->getEmployeesByPage();
+        return response()->json([
+            'employees' => EmployeeResource::collection($employeeByPaginate),
+            'currentPage' => $employeeByPaginate->currentPage(),
+            'lastPage' => $employeeByPaginate->lastPage()
+        ]);
     }
 }
