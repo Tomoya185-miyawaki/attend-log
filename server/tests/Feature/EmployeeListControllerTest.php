@@ -38,7 +38,7 @@ final class EmployeeListControllerTest extends TestCase
                          ->get('/api/employee');
 
         $response->assertStatus(Response::HTTP_OK)
-                 ->assertJsonCount(self::CREATE_NUM);
+                 ->assertJsonCount(self::CREATE_NUM, 'employees');
     }
 
     /**
