@@ -1,5 +1,5 @@
 import http from '@/util/http'
-import { LoginFormData } from '@/types/auth'
+import { LoginFormData, EmployeeFormData } from '@/types/auth'
 
 class ApiService {
   getCsrfToken(): Promise<void> {
@@ -20,6 +20,10 @@ class ApiService {
 
   getEmployeesByPaginate(page: number): Promise<any> {
     return http.get('/api/employee?page=' + page)
+  }
+
+  createEmployee(formData: EmployeeFormData): Promise<any> {
+    return http.post('/api/employee/create', formData)
   }
 }
 

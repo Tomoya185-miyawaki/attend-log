@@ -2,6 +2,14 @@
   <HeaderComponent />
   <v-main>
     <v-container>
+      <v-col class="text-right pa-0">
+        <v-btn
+          elevation="2"
+          to="/admin/employee/create"
+        >
+          作成
+        </v-btn>
+      </v-col>
       <v-table>
         <thead>
           <tr>
