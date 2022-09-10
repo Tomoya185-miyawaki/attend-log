@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\AdminResource;
-use App\Interfaces\Repositories\AdminRepositoryInterface;
+use App\Http\Resources\EmployeeResource;
+use App\Interfaces\Repositories\EmployeeRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
-final class AdminListController extends Controller
+final class EmployeeListController extends Controller
 {
     public function __construct(
-        private AdminRepositoryInterface $adminRepositoryInterface
+        private EmployeeRepositoryInterface $employeeRepositoryInterface
     )
     {
     }
@@ -24,7 +24,7 @@ final class AdminListController extends Controller
     public function __invoke(): JsonResponse
     {
         return response()->json(
-            AdminResource::collection($this->adminRepositoryInterface->getAllAdmins())
+            EmployeeResource::collection($this->employeeRepositoryInterface->getAllEmployees())
         );
     }
 }

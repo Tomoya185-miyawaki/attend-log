@@ -1,6 +1,10 @@
 <template>
   <div id="loading" v-if="isLoading">
-    <v-progress-circular indeterminate />
+    <v-progress-circular
+      :size="100"
+      color="amber"
+      indeterminate
+    />
   </div>
 </template>
 
@@ -13,8 +17,8 @@
   height: 100vh;
   z-index:9999;
   position: fixed;
-  background-color: #fefefe;
-  opacity: .5;
+  background-color: #fff;
+  opacity: 1;
 }
 </style>
 

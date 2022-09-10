@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AdminListController;
 use App\Http\Controllers\Auth\AdminPasswordResetController;
+use App\Http\Controllers\EmployeeListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,5 +31,8 @@ Route::prefix('admin')->group(function() {
 Route::middleware('auth:sanctum')->group(function() {
     Route::prefix('admin')->group(function() {
         Route::get('/', AdminListController::class);
+    });
+    Route::prefix('employee')->group(function() {
+        Route::get('/', EmployeeListController::class);
     });
 });

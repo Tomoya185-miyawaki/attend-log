@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { isAdminLoggedIn } from '@/util/auth';
 import LoginPage from '@/pages/admin/LoginPage.vue'
 import PasswordReset from '@/pages/admin/PasswordReset.vue'
+import EmployeeList from '@/pages/admin/employee/List.vue'
 import NotFoundPage from '@/pages/NotFoundPage.vue'
 
 const routes = [
@@ -16,6 +17,12 @@ const routes = [
     name: 'passwordReset',
     component: PasswordReset,
     meta: { adminGuestOnly: true }
+  },
+  {
+    path: '/admin/employee',
+    name: 'employeeList',
+    component: EmployeeList,
+    meta: { adminAuthOnly: true }
   },
   {
     path: '/:catchAll(.*)',
