@@ -32,11 +32,11 @@ final class AdminListControllerTest extends TestCase
      */
     public function 認証済みの場合は正常に処理が完了すること(): void
     {
-        $response = $this->actingAs($this->admin[0])
+        $response = $this->actingAs($this->admin[0], 'admin')
                          ->get('/api/admin');
 
         $response->assertStatus(Response::HTTP_OK)
-                 ->assertJsonCount(self::CREATE_NUM, 'data');
+                 ->assertJsonCount(self::CREATE_NUM);
     }
 
     /**
