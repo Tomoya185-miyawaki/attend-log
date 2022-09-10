@@ -17,6 +17,10 @@ class ApiService {
   passwordReset(formData: LoginFormData): Promise<any> {
     return http.post('/api/admin/password-reset', formData)
   }
+
+  getEmployees(): Promise<any> {
+    return http.get('/api/employee')
+  }
 }
 
 export default new ApiService()

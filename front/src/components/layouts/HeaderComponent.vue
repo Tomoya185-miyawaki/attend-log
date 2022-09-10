@@ -34,7 +34,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import LoadingComponent from '@/components/parts/LoadingComponent.vue'
-import { isAdminLoggedIn } from '@/util/auth';
+import { isAdminLoggedIn, failedApiAfterLogout } from '@/util/auth';
 import ApiService from '@/services/ApiService';
 import router from '@/routes/router';
 
@@ -64,9 +64,9 @@ export default defineComponent({
           isLoading.value = false
           router.push('/admin/login')
         })
-        .catch(() => {
+        .catch(err => {
           isLoading.value = false
-          alert('ログアウトに失敗しました')
+          failedApiAfterLogout(err.response.status)
         })
     }
     return {

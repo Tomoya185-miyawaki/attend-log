@@ -23,8 +23,8 @@ final class AdminListController extends Controller
      */
     public function __invoke(): JsonResponse
     {
-        return response()->json([
-            'data' => AdminResource::collection($this->adminRepositoryInterface->getAllAdmins())
-        ]);
+        return response()->json(
+            AdminResource::collection($this->adminRepositoryInterface->getAllAdmins())
+        );
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\AdminResource;
+use App\Http\Resources\EmployeeResource;
 use App\Interfaces\Repositories\EmployeeRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
@@ -23,8 +23,8 @@ final class EmployeeListController extends Controller
      */
     public function __invoke(): JsonResponse
     {
-        return response()->json([
-            'data' => AdminResource::collection($this->employeeRepositoryInterface->getAllEmployees())
-        ]);
+        return response()->json(
+            EmployeeResource::collection($this->employeeRepositoryInterface->getAllEmployees())
+        );
     }
 }
