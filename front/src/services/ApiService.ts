@@ -1,5 +1,6 @@
 import http from '@/util/http'
 import { LoginFormData, EmployeeFormData } from '@/types/auth'
+import { GetEmployeesByPaginateRes } from '@/types/api/response'
 
 class ApiService {
   getCsrfToken(): Promise<void> {
@@ -18,8 +19,9 @@ class ApiService {
     return http.post('/api/admin/password-reset', formData)
   }
 
-  getEmployeesByPaginate(page: number): Promise<any> {
-    return http.get('/api/employee?page=' + page)
+  async getEmployeesByPaginate(page: number): Promise<GetEmployeesByPaginateRes> {
+    const response = await http.get('/api/employee?page=' + page)
+    return response.data
   }
 
   createEmployee(formData: EmployeeFormData): Promise<any> {

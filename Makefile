@@ -20,3 +20,5 @@ fe_test:
 	docker-compose exec server bash -c 'php artisan test --testsuite=Feature'
 seed:
 	docker-compose exec server bash -c 'php artisan migrate:fresh --seed'
+insight:
+	docker-compose exec server bash -c 'php artisan insights --fix'

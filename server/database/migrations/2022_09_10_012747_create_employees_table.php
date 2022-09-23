@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->comment('従業員名');
             $table->integer('hourly_wage')->comment('時給');
+            $table->unique(['name']);
             $table->timestamps();
             $table->softDeletes();
         });
