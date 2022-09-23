@@ -33,15 +33,15 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
     }
 
     /**
-     * 従業員を作成する
+     * 従業員を作成or更新する
      *
      * @param Employee $employee Employeeモデル
      * @param string $name 従業員名
      * @param int $hourlyWage 時給
      *
-     * @return bool 作成に成功したかどうか
+     * @return bool 作成に成功or更新にしたかどうか
      */
-    public function create(
+    public function save(
         Employee $employee,
         string $name,
         int $hourlyWage

@@ -28,7 +28,7 @@ final class EmployeeCreateController extends Controller
      */
     public function __invoke(EmployeeCreateRequest $request): JsonResponse
     {
-        $isCreate = $this->employeeRepositoryInterface->create(
+        $isCreate = $this->employeeRepositoryInterface->save(
             $this->employee,
             $request->input('name'),
             (int) $request->input('hourlyWage')
