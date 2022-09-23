@@ -26,7 +26,7 @@ final class EmployeeCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
+            'name' => ['required', 'unique:employees'],
             'hourlyWage' => ['required'],
         ];
     }

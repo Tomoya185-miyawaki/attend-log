@@ -7,9 +7,9 @@
         outlined
         type="error"
         class="mb-4"
-        v-if="isError"
+        v-if="errorMessage"
       >
-        作成に失敗しました
+        {{ errorMessage }}
       </v-alert>
       <form @submit.prevent="handleSubmit">
         <v-text-field
@@ -59,7 +59,7 @@ export default defineComponent({
     LoadingComponent
   },
   setup() {
-    let isError = ref<boolean>(false)
+    let errorMessage = ref<string>('')
     let isLoading = ref<boolean>(false)
     const formSchema = yup.object({
       name: yup.string().required('従業員名は必須項目です'),
@@ -82,9 +82,9 @@ export default defineComponent({
           }).then(() => {
             isLoading.value = false
             router.push('/admin/employee')
-          }).catch(() => {
+          }).catch((err) => {
             isLoading.value = false
-            isError.value = true
+            errorMessage.value = err.response.data.message
           })
       }
     }
@@ -94,7 +94,7 @@ export default defineComponent({
       hourlyWage,
       hourlyWageError,
       handleSubmit,
-      isError,
+      errorMessage,
       isLoading,
     }
   }

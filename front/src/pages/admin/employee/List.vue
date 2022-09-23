@@ -63,18 +63,17 @@ export default defineComponent({
     let isLoading = ref<boolean>(true)
     let currentPage = ref<number>(1)
     let lastPage = ref<number>(1)
-    let perPage = ref<number>(10)
     let employees = ref<Employee[]>([])
 
     const getEmployees = async (page: number) => {
       isLoading.value = true
       await ApiService
         .getEmployeesByPaginate(page)
-        .then(response => {
+        .then(res => {
           isLoading.value = false
-          employees.value = response.data.employees
-          currentPage.value = response.data.currentPage
-          lastPage.value = response.data.lastPage
+          employees.value = res.employees
+          currentPage.value = res.currentPage
+          lastPage.value = res.lastPage
         })
         .catch(err => {
           isLoading.value = false
@@ -87,7 +86,6 @@ export default defineComponent({
       isLoading,
       currentPage,
       lastPage,
-      perPage,
       employees,
       getEmployees
     }
