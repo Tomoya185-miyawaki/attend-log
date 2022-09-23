@@ -62,6 +62,7 @@ export default defineComponent({
   setup() {
     let isLoading = ref<boolean>(true)
     const route = useRoute()
+    const employeeId = route.params.employeeId as string
     const formSchema = yup.object({
       name: yup.string().required('従業員名は必須項目です'),
       hourlyWage: yup.string().required('時給は必須項目です')
@@ -70,7 +71,7 @@ export default defineComponent({
     const { value: name, errorMessage: nameError } = useField<string>('name');
     const { value: hourlyWage, errorMessage: hourlyWageError } = useField<number>('hourlyWage');
 
-    ApiService.getEmployeesById(route.params.employeeId as string)
+    ApiService.getEmployeesById(employeeId)
       .then(res => {
         name.value = res.employee.name
         hourlyWage.value = res.employee.hourly_wage
@@ -89,13 +90,15 @@ export default defineComponent({
         !hourlyWageError.value?.length
       ) {
         isLoading.value = true
-        ApiService.createEmployee({
+        ApiService.updateEmployee({
             name: name.value,
             hourlyWage: hourlyWage.value
-          }).then(() => {
+          }, employeeId)
+          .then(() => {
             isLoading.value = false
             router.push({ name: 'employeeList' })
-          }).catch((err) => {
+          })
+          .catch((err) => {
             isLoading.value = false
             errorMessage.value = err.response.data.message
           })

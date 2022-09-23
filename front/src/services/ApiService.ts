@@ -7,15 +7,15 @@ class ApiService {
     return http.get('/sanctum/csrf-cookie')
   }
 
-  login(formData: LoginFormData): Promise<any> {
+  login(formData: LoginFormData): Promise<void> {
     return http.post('/admin/login', formData)
   }
 
-  logout(): Promise<any> {
+  logout(): Promise<void> {
     return http.post('/admin/logout')
   }
 
-  passwordReset(formData: LoginFormData): Promise<any> {
+  passwordReset(formData: LoginFormData): Promise<void> {
     return http.post('/api/admin/password-reset', formData)
   }
 
@@ -29,8 +29,12 @@ class ApiService {
     return response.data
   }
 
-  createEmployee(formData: EmployeeFormData): Promise<any> {
+  createEmployee(formData: EmployeeFormData): Promise<void> {
     return http.post('/api/employee/create', formData)
+  }
+
+  updateEmployee(formData: EmployeeFormData, id: string): Promise<void> {
+    return http.patch(`/api/employee/${id}`, formData)
   }
 }
 
