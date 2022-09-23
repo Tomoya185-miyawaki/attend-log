@@ -20,7 +20,9 @@ final class AdminLoginController extends Controller
      * Handle the incoming request.
      *
      * @param AdminLoginRequest $request
+     *
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Illuminate\Auth\AuthenticationException
      */
     public function __invoke(AdminLoginRequest $request): JsonResponse

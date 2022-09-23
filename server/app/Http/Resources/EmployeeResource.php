@@ -12,6 +12,7 @@ final class EmployeeResource extends JsonResource
      * リソースを配列に変換
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request): array

@@ -12,8 +12,7 @@ final class AdminListController extends Controller
 {
     public function __construct(
         private AdminRepositoryInterface $adminRepositoryInterface
-    )
-    {
+    ) {
     }
 
     /**

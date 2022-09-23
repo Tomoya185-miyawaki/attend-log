@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Admin;
 use App\Interfaces\Repositories\AdminRepositoryInterface;
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Collection;
 
 final class AdminRepository implements AdminRepositoryInterface

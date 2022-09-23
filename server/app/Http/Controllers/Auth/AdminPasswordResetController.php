@@ -24,7 +24,9 @@ final class AdminPasswordResetController extends Controller
      * Handle the incoming request.
      *
      * @param AdminPasswordResetRequest $request
+     *
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function __invoke(AdminPasswordResetRequest $request): JsonResponse
@@ -38,7 +40,7 @@ final class AdminPasswordResetController extends Controller
         }
         $admin->password = bcrypt($request->input('password'));
         $isUpdate = $this->adminRepositoryInterface->save($admin);
-        if (!$isUpdate) {
+        if (! $isUpdate) {
             throw new HttpException(Response::HTTP_NO_CONTENT, 'パスワードの更新に失敗しました');
         }
         return response()->json([
