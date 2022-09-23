@@ -25,6 +25,8 @@
           <tr
             v-for="employee in employees"
             :key="employee.id"
+            class="table-row"
+            @click="moveEmployeeEditPage(employee.id)"
           >
             <td>{{ employee.name }}</td>
             <td>{{ employee.hourly_wage }}円</td>
@@ -45,12 +47,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { Employee } from "@/types/model"
-import HeaderComponent from '@/components/layouts/HeaderComponent.vue';
-import FooterComponent from '@/components/layouts/FooterComponent.vue';
+import { Employee } from '@/types/model'
+import HeaderComponent from '@/components/layouts/HeaderComponent.vue'
+import FooterComponent from '@/components/layouts/FooterComponent.vue'
 import LoadingComponent from '@/components/parts/LoadingComponent.vue'
-import ApiService from '@/services/ApiService';
+import ApiService from '@/services/ApiService'
 import { failedApiAfterLogout } from '@/util/auth'
+import router from '@/routes/router'
 
 export default defineComponent({
   name: 'EmployeeListPage',
@@ -82,13 +85,24 @@ export default defineComponent({
     }
     getEmployees(currentPage.value)
 
+    const moveEmployeeEditPage = (employeeId: number) => {
+      router.push({ name: 'employeeEdit', params: { employeeId: employeeId }})
+    }
+
     return {
       isLoading,
       currentPage,
       lastPage,
       employees,
-      getEmployees
+      getEmployees,
+      moveEmployeeEditPage
     }
   }
 })
 </script>
+
+<style scoped>
+.table-row:hover {
+  cursor: pointer;
+}
+</style>

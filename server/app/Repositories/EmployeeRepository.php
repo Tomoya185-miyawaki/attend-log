@@ -21,6 +21,18 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
     }
 
     /**
+     * Idから従業員を取得する
+     *
+     * @param string $id 従業員Id
+     *
+     * @return Employee|null
+     */
+    public function getEmployeesById(string $id): Employee|null
+    {
+        return Employee::find($id);
+    }
+
+    /**
      * 従業員を作成する
      *
      * @param Employee $employee Employeeモデル

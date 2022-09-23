@@ -31,7 +31,7 @@
           <v-btn
             type="submit"
           >
-            作成
+            更新
           </v-btn>
         </v-col>
       </form>
@@ -50,17 +50,18 @@ import FooterComponent from '@/components/layouts/FooterComponent.vue'
 import LoadingComponent from '@/components/parts/LoadingComponent.vue'
 import ApiService from '@/services/ApiService'
 import router from '@/routes/router'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
-  name: 'EmployeeCreate',
+  name: 'EmployeeEdit',
   components: {
     HeaderComponent,
     FooterComponent,
     LoadingComponent
   },
   setup() {
-    let errorMessage = ref<string>('')
-    let isLoading = ref<boolean>(false)
+    let isLoading = ref<boolean>(true)
+    const route = useRoute()
     const formSchema = yup.object({
       name: yup.string().required('従業員名は必須項目です'),
       hourlyWage: yup.string().required('時給は必須項目です')
@@ -68,6 +69,18 @@ export default defineComponent({
     useForm({ validationSchema: formSchema })
     const { value: name, errorMessage: nameError } = useField<string>('name');
     const { value: hourlyWage, errorMessage: hourlyWageError } = useField<number>('hourlyWage');
+
+    ApiService.getEmployeesById(route.params.employeeId as string)
+      .then(res => {
+        name.value = res.employee.name
+        hourlyWage.value = res.employee.hourly_wage
+        isLoading.value = false
+      })
+      .catch(() => {
+        router.push({ name: 'adminError' })
+      })
+
+    let errorMessage = ref<string>('')
     const handleSubmit = () => {
       if (
         name.value &&
