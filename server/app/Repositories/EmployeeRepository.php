@@ -21,15 +21,27 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
     }
 
     /**
-     * 従業員を作成する
+     * Idから従業員を取得する
+     *
+     * @param string $id 従業員Id
+     *
+     * @return Employee|null
+     */
+    public function getEmployeesById(string $id): Employee|null
+    {
+        return Employee::find($id);
+    }
+
+    /**
+     * 従業員を作成or更新する
      *
      * @param Employee $employee Employeeモデル
      * @param string $name 従業員名
      * @param int $hourlyWage 時給
      *
-     * @return bool 作成に成功したかどうか
+     * @return bool 作成に成功or更新にしたかどうか
      */
-    public function create(
+    public function save(
         Employee $employee,
         string $name,
         int $hourlyWage

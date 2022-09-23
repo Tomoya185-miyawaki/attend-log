@@ -4,7 +4,7 @@
     <v-container>
       <v-row class="text-center">
         <v-col cols="12">
-          404ページ
+          お探しのページは見つかりませんでした
         </v-col>
       </v-row>
     </v-container>
@@ -14,11 +14,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HeaderComponent from '@/components/layouts/HeaderComponent.vue';
-import FooterComponent from '@/components/layouts/FooterComponent.vue';
+import HeaderComponent from '@/components/layouts/HeaderComponent.vue'
+import FooterComponent from '@/components/layouts/FooterComponent.vue'
 
 export default defineComponent({
-  name: 'NotFoundPage',
+  name: 'AdminNotFoundPage',
   components: {
     HeaderComponent,
     FooterComponent,

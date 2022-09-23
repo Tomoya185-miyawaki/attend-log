@@ -4,7 +4,9 @@ import LoginPage from '@/pages/admin/LoginPage.vue'
 import PasswordReset from '@/pages/admin/PasswordReset.vue'
 import EmployeeList from '@/pages/admin/employee/List.vue'
 import EmployeeCreate from '@/pages/admin/employee/Create.vue'
-import NotFoundPage from '@/pages/NotFoundPage.vue'
+import EmployeeEdit from '@/pages/admin/employee/Edit.vue'
+import AdminErrorPage from '@/pages/admin/ErrorPage.vue'
+import AdminNotFoundPage from '@/pages/admin/NotFoundPage.vue'
 
 const routes = [
   {
@@ -32,8 +34,19 @@ const routes = [
     meta: { adminAuthOnly: true }
   },
   {
-    path: '/:catchAll(.*)',
-    component: NotFoundPage
+    path: '/admin/employee/:employeeId/edit',
+    name: 'employeeEdit',
+    component: EmployeeEdit,
+    meta: { adminAuthOnly: true }
+  },
+  {
+    path: '/admin/error',
+    name: 'adminError',
+    component: AdminErrorPage
+  },
+  {
+    path: '/admin/:catchAll(.*)',
+    component: AdminNotFoundPage
   },
 ]
 

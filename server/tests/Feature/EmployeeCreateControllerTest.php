@@ -13,8 +13,6 @@ final class EmployeeCreateControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    private const CREATE_NUM = 10;
-
     /**
      * setUp
      *

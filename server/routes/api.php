@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AdminListController;
 use App\Http\Controllers\Auth\AdminPasswordResetController;
-use App\Http\Controllers\EmployeeCreateController;
 use App\Http\Controllers\EmployeeListController;
+use App\Http\Controllers\EmployeeIdController;
+use App\Http\Controllers\EmployeeCreateController;
+use App\Http\Controllers\EmployeeUpdateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +37,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::prefix('employee')->group(function () {
         Route::get('/', EmployeeListController::class);
+        Route::get('/{id}', EmployeeIdController::class);
         Route::post('/create', EmployeeCreateController::class);
+        Route::patch('/{id}', EmployeeUpdateController::class);
     });
 });

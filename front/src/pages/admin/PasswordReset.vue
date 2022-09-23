@@ -47,13 +47,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { useField, useForm } from 'vee-validate';
+import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
-import HeaderComponent from '@/components/layouts/HeaderComponent.vue';
-import FooterComponent from '@/components/layouts/FooterComponent.vue';
+import HeaderComponent from '@/components/layouts/HeaderComponent.vue'
+import FooterComponent from '@/components/layouts/FooterComponent.vue'
 import LoadingComponent from '@/components/parts/LoadingComponent.vue'
-import ApiService from '@/services/ApiService';
-import router from '@/routes/router';
+import ApiService from '@/services/ApiService'
+import router from '@/routes/router'
 
 export default defineComponent({
   name: 'LoginPage',
@@ -86,7 +86,7 @@ export default defineComponent({
             password: password.value
           }).then(() => {
             isLoading.value = false
-            router.push('/admin/login')
+            router.push({ name: 'login' })
           }).catch(() => {
             isLoading.value = false
             isError.value = true

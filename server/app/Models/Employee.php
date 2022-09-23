@@ -21,15 +21,4 @@ final class Employee extends Model
         'name',
         'hourly_wage',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'created_at' => 'date',
-        'updated_at' => 'date',
-        'deleted_at' => 'date',
-    ];
 }

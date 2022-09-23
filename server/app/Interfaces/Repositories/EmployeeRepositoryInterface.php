@@ -10,7 +10,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface EmployeeRepositoryInterface
 {
     public function getEmployeesByPage(): LengthAwarePaginator;
-    public function create(
+    public function getEmployeesById(string $id): Employee|null;
+    public function save(
         Employee $employee,
         string $name,
         int $hourlyWage
