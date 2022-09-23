@@ -12,8 +12,7 @@ final class EmployeeListController extends Controller
 {
     public function __construct(
         private EmployeeRepositoryInterface $employeeRepositoryInterface
-    )
-    {
+    ) {
     }
 
     /**
@@ -27,7 +26,7 @@ final class EmployeeListController extends Controller
         return response()->json([
             'employees' => EmployeeResource::collection($employeeByPaginate),
             'currentPage' => $employeeByPaginate->currentPage(),
-            'lastPage' => $employeeByPaginate->lastPage()
+            'lastPage' => $employeeByPaginate->lastPage(),
         ]);
     }
 }

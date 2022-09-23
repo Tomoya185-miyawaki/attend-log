@@ -1,0 +1,26 @@
+name: Insights
+
+on:
+  - pull_request
+
+jobs:
+  phpinsights:
+    runs-on: ubuntu-latest
+
+    name: PHP Insights checks
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+
+      - name: docker-compose up
+        run: docker-compose up -d --build server
+
+      - name: Install Dependencies
+        run: docker-compose exec -T server bash -c "composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --prefer-dist"
+
+      - name: Insights Analyse
+        run: docker-compose exec -T server bash -c "php artisan insights -n --ansi --format=github-action"

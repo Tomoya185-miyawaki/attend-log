@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Employee;
 use App\Interfaces\Repositories\EmployeeRepositoryInterface;
+use App\Models\Employee;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 final class EmployeeRepository implements EmployeeRepositoryInterface
@@ -25,8 +25,9 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
      *
      * @param Employee $employee Employeeモデル
      * @param string $name 従業員名
-     * @param integer $hourlyWage 時給
-     * @return boolean 作成に成功したかどうか
+     * @param int $hourlyWage 時給
+     *
+     * @return bool 作成に成功したかどうか
      */
     public function create(
         Employee $employee,

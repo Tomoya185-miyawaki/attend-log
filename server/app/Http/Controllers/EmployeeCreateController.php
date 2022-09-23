@@ -23,6 +23,7 @@ final class EmployeeCreateController extends Controller
      * Handle the incoming request.
      *
      * @param EmployeeCreateRequest $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(EmployeeCreateRequest $request): JsonResponse
@@ -30,7 +31,7 @@ final class EmployeeCreateController extends Controller
         $isCreate = $this->employeeRepositoryInterface->create(
             $this->employee,
             $request->input('name'),
-            (int)$request->input('hourlyWage')
+            (int) $request->input('hourlyWage')
         );
         if ($isCreate) {
             return response()->json('従業員作成に成功しました');
