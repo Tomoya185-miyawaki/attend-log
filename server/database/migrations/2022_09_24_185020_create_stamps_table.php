@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('stamps', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-            $table->integer('status')->comment('ステータス');
+            $table->tinyInteger('status')->comment('ステータス');
             $table->dateTime('stamp_date')->comment('打刻時間');
             $table->timestamps();
             $table->softDeletes();

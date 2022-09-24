@@ -11,13 +11,23 @@ use Illuminate\Pagination\LengthAwarePaginator;
 final class EmployeeRepository implements EmployeeRepositoryInterface
 {
     /**
-     * 全ての管理者ユーザを取得する
+     * 全ての従業員を取得する（更新日でソート）
      *
      * @return Collection
      */
     public function getEmployeesByPage(): LengthAwarePaginator
     {
         return Employee::orderBy('updated_at', 'desc')->paginate(10);
+    }
+
+    /**
+     * 全ての従業員を取得する
+     *
+     * @return Collection
+     */
+    public function getEmployeesByPageNotSort(): LengthAwarePaginator
+    {
+        return Employee::paginate(10);
     }
 
     /**

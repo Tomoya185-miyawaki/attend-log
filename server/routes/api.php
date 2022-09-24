@@ -9,6 +9,7 @@ use App\Http\Controllers\EmployeeDeleteController;
 use App\Http\Controllers\EmployeeIdController;
 use App\Http\Controllers\EmployeeListController;
 use App\Http\Controllers\EmployeeUpdateController;
+use App\Http\Controllers\StampListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,5 +43,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/create', EmployeeCreateController::class);
         Route::patch('/{id}', EmployeeUpdateController::class);
         Route::delete('/{id}', EmployeeDeleteController::class);
+    });
+    Route::prefix('stamp')->group(function () {
+        Route::get('/', StampListController::class);
     });
 });

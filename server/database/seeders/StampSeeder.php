@@ -36,5 +36,11 @@ class StampSeeder extends Seeder
             'status' => 4, // 休憩終了
             'stamp_date' => '2022-09-24 13:00:00'
         ]);
+
+        DB::table('stamps')->insert([
+            'employee_id' => 2,
+            'status' => 1, // 出勤
+            'stamp_date' => '2022-09-24 09:00:00'
+        ]);
     }
 }
