@@ -2,14 +2,7 @@
   <HeaderComponent />
   <v-main>
     <v-container>
-      <v-col class="text-right pa-0">
-        <v-btn
-          elevation="2"
-          to="/admin/employee/create"
-        >
-          作成
-        </v-btn>
-      </v-col>
+      <h2 class="mb-4">2022年9月24日の出退勤状況</h2>
       <v-table>
         <thead>
           <tr>
@@ -17,7 +10,16 @@
               従業員名
             </th>
             <th class="text-left">
-              時給
+              出社時刻
+            </th>
+            <th class="text-left">
+              退社時刻
+            </th>
+            <th class="text-left">
+              休憩時間
+            </th>
+            <th class="text-left">
+              労働時間
             </th>
           </tr>
         </thead>
@@ -30,6 +32,9 @@
           >
             <td>{{ employee.name }}</td>
             <td>{{ employee.hourly_wage }}円</td>
+            <td>18:00</td>
+            <td>1:00</td>
+            <td>7:00</td>
           </tr>
         </tbody>
       </v-table>
@@ -54,7 +59,7 @@ import { failedApiAfterLogout } from '@/util/auth'
 import router from '@/routes/router'
 
 export default defineComponent({
-  name: 'EmployeeListPage',
+  name: 'StampListPage',
   components: {
     HeaderComponent,
     LoadingComponent,

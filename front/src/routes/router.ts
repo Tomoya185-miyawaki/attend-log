@@ -5,6 +5,7 @@ import PasswordReset from '@/pages/admin/PasswordReset.vue'
 import EmployeeList from '@/pages/admin/employee/List.vue'
 import EmployeeCreate from '@/pages/admin/employee/Create.vue'
 import EmployeeEdit from '@/pages/admin/employee/Edit.vue'
+import StampList from '@/pages/admin/stamp/List.vue'
 import AdminErrorPage from '@/pages/admin/ErrorPage.vue'
 import AdminNotFoundPage from '@/pages/admin/NotFoundPage.vue'
 
@@ -37,6 +38,12 @@ const routes = [
     path: '/admin/employee/:employeeId/edit',
     name: 'employeeEdit',
     component: EmployeeEdit,
+    meta: { adminAuthOnly: true }
+  },
+  {
+    path: '/admin/stamp',
+    name: 'stampList',
+    component: StampList,
     meta: { adminAuthOnly: true }
   },
   {

@@ -6,23 +6,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 final class Employee extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
-    /**
-     * 出退勤時刻を取得
-     *
-     * @return HasMany
-     */
-    public function stamps()
-    {
-        return $this->hasMany(Stamp::class);
-    }
 
     /**
      * The attributes that are mass assignable.
@@ -33,4 +23,14 @@ final class Employee extends Model
         'name',
         'hourly_wage',
     ];
+
+    /**
+     * 出退勤時刻を取得
+     *
+     * @return HasMany
+     */
+    public function stamps()
+    {
+        return $this->hasMany(Stamp::class);
+    }
 }
