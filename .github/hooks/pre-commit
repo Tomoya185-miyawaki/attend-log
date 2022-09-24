@@ -1,0 +1,4 @@
+#!/bin/sh
+
+make php_cs_fixer
+make insight
