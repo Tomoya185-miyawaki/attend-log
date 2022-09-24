@@ -50,4 +50,16 @@ final class EmployeeRepository implements EmployeeRepositoryInterface
         $employee->hourly_wage = $hourlyWage;
         return $employee->save();
     }
+
+    /**
+     * 従業員を削除する
+     *
+     * @param string $id 従業員ID
+     *
+     * @return int 削除した従業員数
+     */
+    public function delete(string $id): int
+    {
+        return Employee::destroy($id);
+    }
 }

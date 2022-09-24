@@ -16,4 +16,5 @@ interface EmployeeRepositoryInterface
         string $name,
         int $hourlyWage
     ): bool;
+    public function delete(string $id): int;
 }
