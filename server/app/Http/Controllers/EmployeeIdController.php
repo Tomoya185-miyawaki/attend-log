@@ -31,7 +31,7 @@ final class EmployeeIdController extends Controller
             throw new HttpException(Response::HTTP_BAD_REQUEST, '従業員の取得に失敗しました');
         }
         return response()->json([
-            'employee' => new EmployeeResource($employee)
+            'employee' => new EmployeeResource($employee),
         ]);
     }
 }

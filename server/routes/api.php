@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AdminListController;
 use App\Http\Controllers\Auth\AdminPasswordResetController;
-use App\Http\Controllers\EmployeeListController;
-use App\Http\Controllers\EmployeeIdController;
 use App\Http\Controllers\EmployeeCreateController;
+use App\Http\Controllers\EmployeeIdController;
+use App\Http\Controllers\EmployeeListController;
 use App\Http\Controllers\EmployeeUpdateController;
 use Illuminate\Support\Facades\Route;
 
