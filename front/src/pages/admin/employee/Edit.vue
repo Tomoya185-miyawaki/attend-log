@@ -11,7 +11,7 @@
       >
         {{ errorMessage }}
       </v-alert>
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="handleUpdate">
         <v-text-field
           v-model="name"
           :error-messages="nameError"
@@ -28,6 +28,13 @@
           required
         ></v-text-field>
         <v-col class="text-right pa-0">
+          <v-btn
+            class="mr-3"
+            color="error"
+            @click="handleDelete"
+          >
+            削除
+          </v-btn>
           <v-btn
             type="submit"
           >
@@ -82,7 +89,7 @@ export default defineComponent({
       })
 
     let errorMessage = ref<string>('')
-    const handleSubmit = () => {
+    const handleUpdate = () => {
       if (
         name.value &&
         !nameError.value?.length &&
@@ -99,17 +106,33 @@ export default defineComponent({
             router.push({ name: 'employeeList' })
           })
           .catch((err) => {
-            isLoading.value = false
             errorMessage.value = err.response.data.message
+            isLoading.value = false
           })
       }
     }
+    const handleDelete = () => {
+      if (confirm('本当に削除しますか？')) {
+        isLoading.value = true
+        ApiService.deleteEmployee(employeeId)
+          .then(() => {
+            isLoading.value = false
+            router.push({ name: 'employeeList' })
+          })
+          .catch((err) => {
+            errorMessage.value = err.response.data.message
+            isLoading.value = false
+          })
+      }
+    }
+
     return {
       name,
       nameError,
       hourlyWage,
       hourlyWageError,
-      handleSubmit,
+      handleUpdate,
+      handleDelete,
       errorMessage,
       isLoading,
     }

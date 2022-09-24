@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\AdminListController;
 use App\Http\Controllers\Auth\AdminPasswordResetController;
 use App\Http\Controllers\EmployeeCreateController;
+use App\Http\Controllers\EmployeeDeleteController;
 use App\Http\Controllers\EmployeeIdController;
 use App\Http\Controllers\EmployeeListController;
 use App\Http\Controllers\EmployeeUpdateController;
@@ -40,5 +41,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', EmployeeIdController::class);
         Route::post('/create', EmployeeCreateController::class);
         Route::patch('/{id}', EmployeeUpdateController::class);
+        Route::delete('/{id}', EmployeeDeleteController::class);
     });
 });
