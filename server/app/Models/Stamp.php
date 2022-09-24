@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\StampStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-final class Employee extends Model
+final class Stamp extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -20,17 +21,22 @@ final class Employee extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'hourly_wage',
+        'employee_id',
+        'status',
+        'stamp_date',
+    ];
+
+    protected $casts = [
+        'status' => StampStatus::class,
     ];
 
     /**
-     * 出退勤時刻を取得
+     * 対象の従業員を取得する
      *
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function stamps()
+    public function employee()
     {
-        return $this->hasMany(Stamp::class);
+        return $this->belongsTo(Employee::class);
     }
 }

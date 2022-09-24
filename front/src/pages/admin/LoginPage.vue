@@ -41,7 +41,6 @@
       </form>
     </v-container>
   </v-main>
-  <FooterComponent />
   <LoadingComponent :isLoading="isLoading" />
 </template>
 
@@ -50,7 +49,6 @@ import { defineComponent, ref } from 'vue'
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
 import HeaderComponent from '@/components/layouts/HeaderComponent.vue'
-import FooterComponent from '@/components/layouts/FooterComponent.vue'
 import LoadingComponent from '@/components/parts/LoadingComponent.vue'
 import ApiService from '@/services/ApiService'
 import router from '@/routes/router'
@@ -59,7 +57,6 @@ export default defineComponent({
   name: 'LoginPage',
   components: {
     HeaderComponent,
-    FooterComponent,
     LoadingComponent
   },
   setup() {

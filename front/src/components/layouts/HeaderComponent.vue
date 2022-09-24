@@ -54,6 +54,12 @@ export default defineComponent({
           path: '/admin/employee',
           icon: 'mdi-account-multiple'
       },
+      {
+          key: 2,
+          title: '出退勤一覧',
+          path: '/admin/stamp',
+          icon: 'mdi-cube-unfolded'
+      },
     ]
     const logout = () => {
       isLoading.value = true
