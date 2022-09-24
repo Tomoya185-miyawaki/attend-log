@@ -20,5 +20,7 @@ fe_test:
 	docker-compose exec server bash -c 'php artisan test --testsuite=Feature'
 seed:
 	docker-compose exec server bash -c 'php artisan migrate:fresh --seed'
+php_cs_fixer:
+	docker-compose exec -T server bash -c './tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose'
 insight:
-	docker-compose exec server bash -c 'php artisan insights --fix'
+	docker-compose exec -T server bash -c 'php artisan insights --fix'

@@ -14,10 +14,10 @@ final class AdminLoginControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function ログインに成功すること(): void
+    public function testログインに成功すること(): void
     {
         Admin::factory()->create(['email' => 'test@example.com']);
 
@@ -35,10 +35,10 @@ final class AdminLoginControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function ログインに失敗すること(): void
+    public function testログインに失敗すること(): void
     {
         $params = [
             'email' => 'test@example.com',
@@ -54,10 +54,10 @@ final class AdminLoginControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function バリデーションエラーになること(): void
+    public function testバリデーションエラーになること(): void
     {
         $response = $this->postJson('/admin/login', []);
 

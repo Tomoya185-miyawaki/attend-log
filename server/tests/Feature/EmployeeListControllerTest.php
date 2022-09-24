@@ -21,7 +21,7 @@ final class EmployeeListControllerTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->admin = Admin::factory()->create();
@@ -29,10 +29,10 @@ final class EmployeeListControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 認証済みの場合は正常に処理が完了すること(): void
+    public function test認証済みの場合は正常に処理が完了すること(): void
     {
         $response = $this->actingAs($this->admin, 'admin')
                          ->get('/api/employee');
@@ -42,10 +42,10 @@ final class EmployeeListControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 認証していない場合は302リダイレクトすること(): void
+    public function test認証していない場合は302リダイレクトすること(): void
     {
         $response = $this->get('/api/employee');
 
