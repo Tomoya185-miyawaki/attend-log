@@ -1,6 +1,10 @@
 import http from '@/util/http'
 import { LoginFormData, EmployeeFormData } from '@/types/auth'
-import { GetEmployeesByIdRes, GetEmployeesByPaginateRes } from '@/types/api/response'
+import {
+  GetEmployeesByIdRes,
+  GetEmployeesByPaginateRes,
+  GetStampsByPaginateRes
+} from '@/types/api/response'
 
 class ApiService {
   getCsrfToken(): Promise<void> {
@@ -25,7 +29,7 @@ class ApiService {
   }
 
   async getEmployeesByPaginate(page: number): Promise<GetEmployeesByPaginateRes> {
-    const response = await http.get('/api/employee?page=' + page)
+    const response = await http.get(`/api/employee?page=${page}`)
     return response.data
   }
 
@@ -39,6 +43,11 @@ class ApiService {
 
   deleteEmployee(id: string): Promise<void> {
     return http.delete(`/api/employee/${id}`)
+  }
+
+  async getStampsByPaginate(today: string, page: number): Promise<GetStampsByPaginateRes> {
+    const response = await http.get(`/api/stamp?today=${today}&page=${page}`)
+    return response.data
   }
 }
 
