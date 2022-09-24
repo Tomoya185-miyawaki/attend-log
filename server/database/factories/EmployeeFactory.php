@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -18,7 +20,7 @@ class EmployeeFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'hourly_wage' => fake()->numberBetween(850,1100),
+            'hourly_wage' => fake()->numberBetween(850, 1100),
         ];
     }
 }

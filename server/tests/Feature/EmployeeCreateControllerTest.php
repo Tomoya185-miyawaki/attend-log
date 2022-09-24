@@ -18,17 +18,17 @@ final class EmployeeCreateControllerTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->admin = Admin::factory()->create();
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 従業員が作成されること(): void
+    public function test従業員が作成されること(): void
     {
         $params = [
             'name' => '山田太郎',
@@ -44,10 +44,10 @@ final class EmployeeCreateControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 認証していない場合は302リダイレクトすること(): void
+    public function test認証していない場合は302リダイレクトすること(): void
     {
         $response = $this->post('/api/employee/create');
 

@@ -13,17 +13,17 @@ final class AdminPasswordResetControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->admin = Admin::factory()->create(['email' => 'test@example.com']);
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function バリデーションエラーになること(): void
+    public function testバリデーションエラーになること(): void
     {
         $response = $this->postJson('/api/admin/password-reset', []);
 
@@ -38,10 +38,10 @@ final class AdminPasswordResetControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 既にログイン済みの場合はエラーになること(): void
+    public function test既にログイン済みの場合はエラーになること(): void
     {
         $params = [
             'email' => 'test@example.com',
@@ -58,10 +58,10 @@ final class AdminPasswordResetControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 対象の管理者ユーザが存在しない場合はエラーになること(): void
+    public function test対象の管理者ユーザが存在しない場合はエラーになること(): void
     {
         $params = [
             'email' => 'test2@example.com',
@@ -77,10 +77,10 @@ final class AdminPasswordResetControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function パスワードリセットに成功すること(): void
+    public function testパスワードリセットに成功すること(): void
     {
         $params = [
             'email' => 'test@example.com',

@@ -10,7 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 final class Admin extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

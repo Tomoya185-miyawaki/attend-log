@@ -19,7 +19,7 @@ final class EmployeeIdControllerTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->admin = Admin::factory()->create();
@@ -27,11 +27,11 @@ final class EmployeeIdControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      *
      * @return void
      */
-    public function 認証済みの場合かつ存在するIdの場合は正常に動作すること(): void
+    public function test認証済みの場合かつ存在するIdの場合は正常に動作すること(): void
     {
         $response = $this->actingAs($this->admin, 'admin')
                          ->get('/api/employee/' . $this->employee->id);
@@ -43,24 +43,24 @@ final class EmployeeIdControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      *
      * @return void
      */
-    public function 認証済みの場合かつ存在しないIdの場合はステータスコード400が返ること(): void
+    public function test認証済みの場合かつ存在しないIdの場合はステータスコード400が返ること(): void
     {
         $response = $this->actingAs($this->admin, 'admin')
                          ->get('/api/employee/' . $this->employee->id + 1);
 
-        $this->assertEquals($response->getStatusCode(), Response::HTTP_BAD_REQUEST);
+        $this->assertSame($response->getStatusCode(), Response::HTTP_BAD_REQUEST);
     }
 
     /**
-     * @test
+     *
      *
      * @return void
      */
-    public function 認証していない場合は302リダイレクトすること(): void
+    public function test認証していない場合は302リダイレクトすること(): void
     {
         $response = $this->get('/api/employee/' . $this->employee->id);
 

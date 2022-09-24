@@ -19,17 +19,17 @@ final class EmployeeUpdateControllerTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->admin = Admin::factory()->create();
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 従業員が更新されること(): void
+    public function test従業員が更新されること(): void
     {
         $employee = Employee::factory()->create();
         $params = [
@@ -43,15 +43,15 @@ final class EmployeeUpdateControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
 
         $updatedEmployee = Employee::find($employee->id);
-        $this->assertEquals($params['name'], $updatedEmployee->name);
-        $this->assertEquals($params['hourlyWage'], $updatedEmployee->hourly_wage);
+        $this->assertSame($params['name'], $updatedEmployee->name);
+        $this->assertSame($params['hourlyWage'], $updatedEmployee->hourly_wage);
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 更新対象の従業員が取得できない場合はステータスコード400が返ること(): void
+    public function test更新対象の従業員が取得できない場合はステータスコード400が返ること(): void
     {
         $this->employee = Employee::factory()->create();
         $params = [
@@ -62,14 +62,14 @@ final class EmployeeUpdateControllerTest extends TestCase
         $response = $this->actingAs($this->admin, 'admin')
                          ->patch('/api/employee/' . $this->employee->id + 1, $params);
 
-        $this->assertEquals($response->getStatusCode(), Response::HTTP_BAD_REQUEST);
+        $this->assertSame($response->getStatusCode(), Response::HTTP_BAD_REQUEST);
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 認証していない場合は302リダイレクトすること(): void
+    public function test認証していない場合は302リダイレクトすること(): void
     {
         $response = $this->patch('/api/employee/1');
 

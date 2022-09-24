@@ -20,17 +20,17 @@ final class AdminListControllerTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->admin = Admin::factory(self::CREATE_NUM)->create();
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 認証済みの場合は正常に処理が完了すること(): void
+    public function test認証済みの場合は正常に処理が完了すること(): void
     {
         $response = $this->actingAs($this->admin[0], 'admin')
                          ->get('/api/admin');
@@ -40,10 +40,10 @@ final class AdminListControllerTest extends TestCase
     }
 
     /**
-     * @test
+     *
      * @return void
      */
-    public function 認証していない場合は302リダイレクトすること(): void
+    public function test認証していない場合は302リダイレクトすること(): void
     {
         $response = $this->get('/api/admin');
 

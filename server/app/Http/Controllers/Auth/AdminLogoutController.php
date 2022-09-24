@@ -18,7 +18,7 @@ final class AdminLogoutController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      * @return \Illuminate\Http\Response
