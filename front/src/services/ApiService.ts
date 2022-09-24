@@ -36,6 +36,10 @@ class ApiService {
   updateEmployee(formData: EmployeeFormData, id: string): Promise<void> {
     return http.patch(`/api/employee/${id}`, formData)
   }
+
+  deleteEmployee(id: string): Promise<void> {
+    return http.delete(`/api/employee/${id}`)
+  }
 }
 
 export default new ApiService()
