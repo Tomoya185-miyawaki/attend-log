@@ -26,6 +26,7 @@ final class StampRepository implements StampRepositoryInterface
         $employees = $this->employeeRepositoryInterface->getEmployeesByPageNotSort();
         $todayStamps['currentPage'] = $employees->currentPage();
         $todayStamps['lastPage'] = $employees->lastPage();
+        $todayStamps['employeeIds'] = $employees->modelKeys();
         $todayStamps['items'] = [];
         foreach ($employees as $employee) {
             $todayStamps['items'][$employee->name] = $employee->stamps->filter(function ($stamp) use ($today) {

@@ -15,4 +15,5 @@ export type GetStampsByPaginateRes = {
   currentPage: number
   stamps: StampList[]
   lastPage: number
+  employeeIds: number[]
 }

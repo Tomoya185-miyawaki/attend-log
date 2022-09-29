@@ -25,11 +25,12 @@
         </thead>
         <tbody>
           <tr
-            v-for="(stamp, index) in stamps"
-            :key="index"
+            v-for="(stamp, employeeName, index) in stamps"
+            :key="employeeIds[index]"
             class="table-row"
+            @click="moveStampEditPage(employeeIds[index])"
           >
-            <td>{{ index }}</td>
+            <td>{{ employeeName }}</td>
             <td>{{ stamp.attend_date }}</td>
             <td>{{ stamp.leaving_date }}</td>
             <td>{{ stamp.rest_date }}</td>
@@ -55,6 +56,7 @@ import HeaderComponent from '@/components/layouts/HeaderComponent.vue'
 import LoadingComponent from '@/components/parts/LoadingComponent.vue'
 import ApiService from '@/services/ApiService'
 import { failedApiAfterLogout } from '@/util/auth'
+import router from '@/routes/router'
 
 export default defineComponent({
   name: 'StampListPage',
@@ -67,6 +69,7 @@ export default defineComponent({
     let currentPage = ref<number>(1)
     let lastPage = ref<number>(1)
     let stamps = ref<StampList[]>([])
+    let employeeIds = ref<number[]>([])
     const date = new Date()
     const year = date.getFullYear()
     const month = ('0' + (date.getMonth() + 1)).slice(-2)
@@ -81,6 +84,7 @@ export default defineComponent({
         .then(res => {
           isLoading.value = false
           stamps.value = res.stamps
+          employeeIds.value = res.employeeIds
           currentPage.value = res.currentPage
           lastPage.value = res.lastPage
         })
@@ -91,14 +95,20 @@ export default defineComponent({
     }
     getStamps(today, currentPage.value)
 
+    const moveStampEditPage = (employeeId: number) => {
+      router.push({ name: 'stampEdit', params: { employeeId: employeeId }})
+    }
+
     return {
       isLoading,
       currentPage,
       lastPage,
       stamps,
+      employeeIds,
       today,
       todayFormat,
-      getStamps
+      getStamps,
+      moveStampEditPage
     }
   }
 })

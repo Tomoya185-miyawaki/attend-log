@@ -27,6 +27,7 @@ final class StampListController extends Controller
             'stamps' => StampResource::convertStampList($stampListByPaginate['items']),
             'currentPage' => $stampListByPaginate['currentPage'],
             'lastPage' => $stampListByPaginate['lastPage'],
+            'employeeIds' => $stampListByPaginate['employeeIds'],
         ]);
     }
 }
