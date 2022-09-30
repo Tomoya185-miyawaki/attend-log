@@ -1,26 +1,37 @@
+DC := @docker-compose
+
 up:
-	docker-compose up -d
+	$(DC) up -d
 build:
-	docker-compose build
+	$(DC) build
 stop:
-	docker-compose stop
-destroy:
-	docker-compose down --rmi all --volumes
+	$(DC) stop
+down:
+	$(DC) down --rmi all --volumes
 ps:
-	docker-compose ps
+	$(DC) ps
 api:
-	docker-compose exec server bash
-web:
-	docker-compose exec front sh
+	$(DC) exec server bash
+front:
+	$(DC) exec front sh
 db:
-	docker-compose exec db bash
-sql:
-	docker-compose exec db bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
-fe_test:
-	docker-compose exec server bash -c 'php artisan test --testsuite=Feature'
+	$(DC) exec db bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
+test:
+	$(DC) exec server bash -c 'php artisan test --testsuite=Feature'
 seed:
-	docker-compose exec server bash -c 'php artisan migrate:fresh --seed'
+	$(DC) exec server bash -c 'php artisan migrate:fresh --seed'
 php_cs_fixer:
-	docker-compose exec -T server bash -c './tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose'
+	$(DC) exec -T server bash -c './tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose'
 insight:
-	docker-compose exec -T server bash -c 'php artisan insights --fix'
+	$(DC) exec -T server bash -c 'php artisan insights --fix'
+init:
+	$(DC) up -d --build
+	$(DC) exec -T front sh -c 'cp .env.local .env'
+	$(DC) exec -T server bash -c 'cp .env.local .env'
+	$(DC) exec -T server bash -c 'composer install'
+	$(DC) exec -T server bash -c 'composer install --working-dir=tools/php-cs-fixer'
+	$(DC) exec -T server bash -c 'chmod 755 storage/*'
+	$(DC) exec -T server bash -c 'php artisan key:generate'
+	@make seed
+	@cp .github/hooks/pre-commit .git/hooks/pre-commit
+	@chmod +x .git/hooks/pre-commit
