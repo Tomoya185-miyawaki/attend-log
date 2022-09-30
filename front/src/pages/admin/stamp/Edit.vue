@@ -18,6 +18,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import HeaderComponent from '@/components/layouts/HeaderComponent.vue'
 import LoadingComponent from '@/components/parts/LoadingComponent.vue'
 import ApiService from '@/services/ApiService'
+import { failedApiAfterLogout } from '@/util/auth'
 import { getTitle, getColor } from '@/util/fullCalendar'
 import { useRoute } from 'vue-router'
 
@@ -60,6 +61,10 @@ export default defineComponent({
               })
           })
           isLoading.value = false
+        })
+        .catch(err => {
+          isLoading.value = false
+          failedApiAfterLogout(err.response.status)
         })
     }
     getStampDetail(employeeId)
