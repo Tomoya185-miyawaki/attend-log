@@ -73,12 +73,13 @@ export default defineComponent({
     const date = new Date()
     const year = date.getFullYear()
     const month = ('0' + (date.getMonth() + 1)).slice(-2)
-    const day = date.getDate()
+    const day = ('0' + (date.getDate())).slice(-2)
     const today = `${year}-${month}-${day}`
     const todayFormat = `${year}年${month}月${day}日`
 
     const getStamps = async (today: string, page: number) => {
       isLoading.value = true
+      console.log
       await ApiService
         .getStampsByPaginate(today, page)
         .then(res => {
