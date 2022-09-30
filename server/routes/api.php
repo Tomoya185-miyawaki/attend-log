@@ -10,6 +10,7 @@ use App\Http\Controllers\EmployeeIdController;
 use App\Http\Controllers\EmployeeListController;
 use App\Http\Controllers\EmployeeUpdateController;
 use App\Http\Controllers\StampListController;
+use App\Http\Controllers\StampShowController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,4 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('stamp')->group(function () {
         Route::get('/', StampListController::class);
     });
+});
+Route::prefix('stamp')->group(function () {
+    Route::get('/{employeeId}', StampShowController::class);
 });

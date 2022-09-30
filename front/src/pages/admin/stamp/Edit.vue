@@ -2,21 +2,24 @@
   <HeaderComponent />
   <v-main>
     <v-container>
-      <h2 class="mb-4">宮脇智也の出退勤状況</h2>
+      <h2 class="mb-4">{{ employeeName }}の出退勤状況</h2>
       <FullCalendar :options="calendarOptions" />
     </v-container>
   </v-main>
-  <LoadingComponent />
+  <LoadingComponent :isLoading="isLoading" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import '@fullcalendar/core/vdom'
 import FullCalendar from '@fullcalendar/vue3'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import HeaderComponent from '@/components/layouts/HeaderComponent.vue'
 import LoadingComponent from '@/components/parts/LoadingComponent.vue'
+import ApiService from '@/services/ApiService'
+import { getTitle, getColor } from '@/util/fullCalendar'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   name: 'StampEditPage',
@@ -26,36 +29,44 @@ export default defineComponent({
     FullCalendar,
   },
   setup() {
-    const calendarOptions = {
+    let isLoading = ref<boolean>(true)
+    let employeeName = ref<string>('')
+    let calendarOptions = ref<any>(null)
+    const route = useRoute()
+    const employeeId = route.params.employeeId as string
+
+    calendarOptions.value = {
       plugins: [ timeGridPlugin, interactionPlugin ],
       initialView: 'timeGridWeek',
-      events: [
-        {
-          title: '勤務',
-          start: '2022-09-30 08:00:00',
-          end: '2022-09-30 12:00:00',
-          editable: true,
-        },
-        {
-          title: '休憩',
-          start: '2022-09-30 12:00:00',
-          end: '2022-09-30 13:00:00',
-          backgroundColor: '#a5f1c0',
-          borderColor: '#a5f1c0',
-          editable: true,
-        },
-        {
-          title: '出勤',
-          date: '2022-09-30 13:00:00',
-          end: '2022-09-30 17:00:00',
-          editable: true,
-        },
-      ],
+      events: [],
       nowIndicator: true,
-      locale: 'ja'
+      locale: 'ja',
+      allDaySlot: false
     }
 
+    const getStampDetail = async (employeeId: string) => {
+      await ApiService
+        .getStampDetail(employeeId)
+        .then(res => {
+          employeeName.value = res.employeeName
+          res.stamps.map(stamp => {
+            calendarOptions.value.events.push({
+                title: getTitle(stamp.status),
+                start: stamp.stamp_start_date,
+                end: stamp.stamp_end_date,
+                backgroundColor: getColor(stamp.status),
+                borderColor: getColor(stamp.status),
+                editable: true
+              })
+          })
+          isLoading.value = false
+        })
+    }
+    getStampDetail(employeeId)
+
     return {
+      isLoading,
+      employeeName,
       calendarOptions
     }
   }

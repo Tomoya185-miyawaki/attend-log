@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Utils;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class StampResource
 {
@@ -48,6 +49,24 @@ class StampResource
     }
 
     /**
+     * 出退勤詳細用に加工
+     *
+     * @param Collection $stampDetails 出退勤情報
+     *
+     * @return array
+     */
+    public static function convertStampDetails(Collection $stampDetails): array
+    {
+        $response = [];
+        foreach($stampDetails as $key => $stampDetail) {
+            $response[$key]['status'] = $stampDetail->status->value;
+            $response[$key]['stamp_start_date'] = $stampDetail->stamp_start_date;
+            $response[$key]['stamp_end_date'] = $stampDetail->stamp_end_date;
+        }
+        return $response;
+    }
+
+    /**
      * 出退勤記録から労働時間・休憩時間を計算する
      *
      * @param array $attendLeavingLogs 出退勤記録
@@ -71,9 +90,9 @@ class StampResource
             if (isset($attendLeavingLog['leaving_end_date'])) {
                 $leavingDate = new Carbon($attendLeavingLog['leaving_end_date']);
                 $response[$key]['leaving_date'] = ltrim($leavingDate->format('H時i分'), '0');
-            } elseif (isset($attendLeavingLog['attend_end_date']) && !isset($attendLeavingLog['rest_start_date'])) {
+            } elseif (isset($attendLeavingLog['attend_end_date']) && ! isset($attendLeavingLog['rest_start_date'])) {
                 $leavingDate = new Carbon($attendLeavingLog['attend_end_date']);
-                $response[$key]['leaving_date'] = ltrim($leavingDate->format('H時i分'), '0');;
+                $response[$key]['leaving_date'] = ltrim($leavingDate->format('H時i分'), '0');
             } else {
                 $leavingDate = null;
                 $response[$key]['leaving_date'] = '-';

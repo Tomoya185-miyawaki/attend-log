@@ -25,7 +25,7 @@ class StampSeeder extends Seeder
             'employee_id' => 1,
             'status' => 1, // 出勤
             'stamp_start_date' => $today . ' 09:00:00',
-            'stamp_end_date' => $today . ' 13:00:00'
+            'stamp_end_date' => $today . ' 12:00:00'
         ]);
         DB::table('stamps')->insert([
             'employee_id' => 1,
