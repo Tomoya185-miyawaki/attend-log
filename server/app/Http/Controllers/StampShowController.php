@@ -32,7 +32,7 @@ final class StampShowController extends Controller
         }
         return response()->json([
             'stamps' => StampResource::convertStampDetails($stampDetails['stamps']),
-            'employeeName' => $stampDetails['name']
+            'employeeName' => $stampDetails['name'],
         ]);
     }
 }

@@ -48,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('stamp')->group(function () {
         Route::get('/', StampListController::class);
     });
-});
-Route::prefix('stamp')->group(function () {
-    Route::get('/{employeeId}', StampShowController::class);
+    Route::prefix('stamp')->group(function () {
+        Route::get('/{employeeId}', StampShowController::class);
+    });
 });

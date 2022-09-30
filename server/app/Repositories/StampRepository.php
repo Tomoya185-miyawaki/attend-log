@@ -54,7 +54,7 @@ final class StampRepository implements StampRepositoryInterface
         });
         return [
             'name' => $employee->name,
-            'stamps' => $stamps
+            'stamps' => $stamps,
         ];
     }
 }

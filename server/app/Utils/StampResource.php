@@ -58,7 +58,7 @@ class StampResource
     public static function convertStampDetails(Collection $stampDetails): array
     {
         $response = [];
-        foreach($stampDetails as $key => $stampDetail) {
+        foreach ($stampDetails as $key => $stampDetail) {
             $response[$key]['status'] = $stampDetail->status->value;
             $response[$key]['stamp_start_date'] = $stampDetail->stamp_start_date;
             $response[$key]['stamp_end_date'] = $stampDetail->stamp_end_date;

@@ -56,7 +56,7 @@ final class StampListControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_OK)
                  ->assertExactJson([
                     'currentPage' => 1,
-                    'employeeIds' => [1],
+                    'employeeIds' => [$this->employee->id],
                     'stamps' => $expected,
                     'lastPage' => 1
                  ]);
