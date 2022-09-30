@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('employee_id');
             $table->tinyInteger('status')->comment('ステータス');
-            $table->dateTime('stamp_date')->comment('打刻時間');
+            $table->dateTime('stamp_start_date')->comment('打刻時間（開始）');
+            $table->dateTime('stamp_end_date')->comment('打刻時間（終了）')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

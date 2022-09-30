@@ -8,8 +8,7 @@ enum StampStatus: int
 {
     case Attend = 1;
     case Leaving = 2;
-    case RestStart = 3;
-    case RestDone = 4;
+    case Rest = 3;
 
     /**
      * ステータスを取得する
@@ -21,8 +20,7 @@ enum StampStatus: int
         return match ($this) {
             self::Attend => 'attend',
             self::Leaving => 'leaving',
-            self::RestStart => 'restStart',
-            self::RestDone => 'restDone',
+            self::Rest => 'rest',
         };
     }
 
@@ -47,22 +45,12 @@ enum StampStatus: int
     }
 
     /**
-     * 休憩開始のステータスかどうか
+     * 休憩のステータスかどうか
      *
      * @return bool
      */
-    public function isRestStart(): bool
+    public function isRest(): bool
     {
-        return $this === self::RestStart;
-    }
-
-    /**
-     * 休憩終了のステータスかどうか
-     *
-     * @return bool
-     */
-    public function isRestDone(): bool
-    {
-        return $this === self::RestDone;
+        return $this === self::Rest;
     }
 }

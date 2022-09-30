@@ -1,5 +1,5 @@
 import { Employee } from "@/types/model"
-import { StampList } from "@/types/stampList"
+import { StampDetail, StampList } from "@/types/stamp"
 
 export type GetEmployeesByIdRes = {
   employee: Employee
@@ -15,4 +15,10 @@ export type GetStampsByPaginateRes = {
   currentPage: number
   stamps: StampList[]
   lastPage: number
+  employeeIds: number[]
+}
+
+export type GetStampDetailRes = {
+  employeeName: string
+  stamps: StampDetail[]
 }

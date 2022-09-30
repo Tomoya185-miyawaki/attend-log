@@ -7,4 +7,5 @@ namespace App\Interfaces\Repositories;
 interface StampRepositoryInterface
 {
     public function getStampListByPage(string $today): array;
+    public function getStampDetail(string $employeeId): ?array;
 }

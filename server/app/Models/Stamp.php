@@ -23,7 +23,8 @@ final class Stamp extends Model
     protected $fillable = [
         'employee_id',
         'status',
-        'stamp_date',
+        'stamp_start_date',
+        'stamp_end_date',
     ];
 
     protected $casts = [
