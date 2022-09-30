@@ -45,7 +45,8 @@ final class StampListControllerTest extends TestCase
             Stamp::create([
                 'employee_id' => $this->employee->id,
                 'status' => $stamp['status'],
-                'stamp_date' => $stamp['stamp_date']
+                'stamp_start_date' => $stamp['stamp_start_date'],
+                'stamp_end_date' => $stamp['stamp_end_date'] ?? null,
             ]);
         }
 
@@ -55,6 +56,7 @@ final class StampListControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_OK)
                  ->assertExactJson([
                     'currentPage' => 1,
+                    'employeeIds' => [1],
                     'stamps' => $expected,
                     'lastPage' => 1
                  ]);
@@ -74,11 +76,11 @@ final class StampListControllerTest extends TestCase
                     ]
                 ]
             ],
-            '出勤時間のみ挿入している場合' => [
+            '午前の仕事中の場合' => [
                 [
                     [
                         'status' => StampStatus::Attend->value,
-                        'stamp_date' => '2022-01-01 09:00:00'
+                        'stamp_start_date' => '2022-01-01 09:00:00'
                     ]
                 ],
                 [
@@ -90,68 +92,70 @@ final class StampListControllerTest extends TestCase
                     ]
                 ]
             ],
-            '出勤時間と退勤時間が挿入している場合' => [
+            '午前の仕事が終わり、休憩中の場合' => [
                 [
                     [
                         'status' => StampStatus::Attend->value,
-                        'stamp_date' => '2022-01-01 09:00:00'
+                        'stamp_start_date' => '2022-01-01 09:00:00',
+                        'stamp_end_date' => '2022-01-01 13:00:00'
                     ],
                     [
-                        'status' => StampStatus::Leaving->value,
-                        'stamp_date' => '2022-01-01 18:00:00'
+                        'status' => StampStatus::Rest->value,
+                        'stamp_start_date' => '2022-01-01 13:00:00'
                     ]
                 ],
                 [
                     'test_name' => [
                         'attend_date' => '9時00分',
-                        'leaving_date' => '18時00分',
+                        'leaving_date' => '-',
                         'rest_date' => '-',
-                        'working_date' => '9時間00分'
+                        'working_date' => '-'
                     ]
                 ]
             ],
-            '出勤時間と退勤時間と休憩開始時間が挿入している場合' => [
+            '午前・休憩の仕事が終わり、午後の仕事中の場合' => [
                 [
                     [
                         'status' => StampStatus::Attend->value,
-                        'stamp_date' => '2022-01-01 09:00:00'
+                        'stamp_start_date' => '2022-01-01 09:00:00',
+                        'stamp_end_date' => '2022-01-01 13:00:00'
+                    ],
+                    [
+                        'status' => StampStatus::Rest->value,
+                        'stamp_start_date' => '2022-01-01 13:00:00',
+                        'stamp_end_date' => '2022-01-01 14:00:00'
                     ],
                     [
                         'status' => StampStatus::Leaving->value,
-                        'stamp_date' => '2022-01-01 18:00:00'
-                    ],
-                    [
-                        'status' => StampStatus::RestStart->value,
-                        'stamp_date' => '2022-01-01 12:00:00'
+                        'stamp_start_date' => '2022-01-01 14:00:00'
                     ]
                 ],
                 [
                     'test_name' => [
                         'attend_date' => '9時00分',
-                        'leaving_date' => '18時00分',
-                        'rest_date' => '-',
-                        'working_date' => '9時間00分'
+                        'leaving_date' => '-',
+                        'rest_date' => '1時間00分',
+                        'working_date' => '-'
                     ]
                 ]
             ],
-            '出勤時間と退勤時間と休憩開始時間と休憩終了時間が挿入している場合' => [
+            '午前・休憩・午後の仕事が終わっている場合' => [
                 [
                     [
                         'status' => StampStatus::Attend->value,
-                        'stamp_date' => '2022-01-01 09:00:00'
+                        'stamp_start_date' => '2022-01-01 09:00:00',
+                        'stamp_end_date' => '2022-01-01 13:00:00'
+                    ],
+                    [
+                        'status' => StampStatus::Rest->value,
+                        'stamp_start_date' => '2022-01-01 13:00:00',
+                        'stamp_end_date' => '2022-01-01 14:00:00'
                     ],
                     [
                         'status' => StampStatus::Leaving->value,
-                        'stamp_date' => '2022-01-01 18:00:00'
-                    ],
-                    [
-                        'status' => StampStatus::RestStart->value,
-                        'stamp_date' => '2022-01-01 12:00:00'
-                    ],
-                    [
-                        'status' => StampStatus::RestDone->value,
-                        'stamp_date' => '2022-01-01 13:00:00'
-                    ],
+                        'stamp_start_date' => '2022-01-01 14:00:00',
+                        'stamp_end_date' => '2022-01-01 18:00:00'
+                    ]
                 ],
                 [
                     'test_name' => [
@@ -162,31 +166,20 @@ final class StampListControllerTest extends TestCase
                     ]
                 ]
             ],
-            '休憩時間が1時間未満の場合' => [
+            '休憩をせずに仕事を終わっている場合' => [
                 [
                     [
                         'status' => StampStatus::Attend->value,
-                        'stamp_date' => '2022-01-01 09:00:00'
-                    ],
-                    [
-                        'status' => StampStatus::Leaving->value,
-                        'stamp_date' => '2022-01-01 18:00:00'
-                    ],
-                    [
-                        'status' => StampStatus::RestStart->value,
-                        'stamp_date' => '2022-01-01 12:00:00'
-                    ],
-                    [
-                        'status' => StampStatus::RestDone->value,
-                        'stamp_date' => '2022-01-01 12:30:00'
+                        'stamp_start_date' => '2022-01-01 09:00:00',
+                        'stamp_end_date' => '2022-01-01 17:00:00',
                     ],
                 ],
                 [
                     'test_name' => [
                         'attend_date' => '9時00分',
-                        'leaving_date' => '18時00分',
-                        'rest_date' => '30分',
-                        'working_date' => '8時間30分'
+                        'leaving_date' => '17時00分',
+                        'rest_date' => '-',
+                        'working_date' => '8時間00分'
                     ]
                 ]
             ]

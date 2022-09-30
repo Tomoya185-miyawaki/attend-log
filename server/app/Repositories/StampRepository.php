@@ -30,7 +30,7 @@ final class StampRepository implements StampRepositoryInterface
         $todayStamps['items'] = [];
         foreach ($employees as $employee) {
             $todayStamps['items'][$employee->name] = $employee->stamps->filter(function ($stamp) use ($today) {
-                return mb_strpos($stamp['stamp_date'], $today) !== false;
+                return mb_strpos($stamp['stamp_start_date'], $today) !== false;
             });
         }
         return $todayStamps;
